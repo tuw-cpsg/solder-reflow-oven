@@ -15,7 +15,7 @@ $(ELF): $(OBJS)
 	avr-gcc -mmcu=$(MMCU) -o $@ $^
 
 %.o: %.c
-	avr-gcc -mmcu=$(MMCU) -D USE_LCD_DISPLAY -c -o $@ $<
+	avr-gcc -mmcu=$(MMCU) -D USE_LCD_DISP -c -o $@ $<
 
 clean:
 	rm -rf *.o $(ELF)

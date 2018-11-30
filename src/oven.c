@@ -74,7 +74,7 @@ static volatile int mode = 0; // oven mode; 0: idle, 1: reflow, 2: bake, 3: cool
 static pid_state_t pid_state;
 static int bake_time = 0;
 
-#ifdef USE_LCD_DISPLAY
+#ifdef USE_LCD_DISP
 static int lcd_blink = 0;
 #endif
 
@@ -158,7 +158,7 @@ ISR(TCC0_OVF_vect)
                 lcd_clear();
                 lcd_backlight(LCD_BACKLIGHT_MAX, LCD_BACKLIGHT_MAX, 0);
                 lcd_printf("BAKING    %2d:%02d:%02d", bake_time / 3600, (bake_time / 60) % 60, bake_time % 60);
-                lcd_printf("Temp: %3d.%02d degC", temp_buf[0]);
+                lcd_printf("Temp: %3d.%02d degC", oven_temp >> 2, (oven_temp & 3) * 25);
                 lcd_printf("D: %s I: %s", temp_buf[1], temp_buf[2]);
                 lcd_printf("Heater: %d", out);
 #else
@@ -235,10 +235,6 @@ ISR(PORTD_INT0_vect)
 int main()
 {
     uart_init();
-#ifdef USE_LCD_DISP
-    lcd_init();
-#endif
-
     temp_init();
 
     PORTE.DIRSET = 4;

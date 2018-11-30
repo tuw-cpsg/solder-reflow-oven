@@ -17,7 +17,7 @@ void uart_init()
 
     // target baud rate: 9600, 2 MHz clock => BSCALE = 0, BSEL = 12
     USARTD1.BAUDCTRLB = 0;
-    USARTD1.BAUDCTRLA = 12;
+    USARTD1.BAUDCTRLA = 13;
 
     USARTD1.CTRLA = 0; // disable interrupts
     USARTD1.CTRLC = 3; // async, no parity, 8 bit data, 1 stop bit

@@ -16,7 +16,7 @@
 /**
  * @brief Clear the display.
  */
-inline int lcd_clear()
+static inline int lcd_clear()
 {
     return fputs("|-", &uartout) != EOF ? 0 : -1;
 }
@@ -29,7 +29,7 @@ inline int lcd_clear()
  * The backlight color can be specified using @p r for the red, @p g for the
  * green and @b for the blue component.
  */
-inline int lcd_backlight(uint8_t r, uint8_t g, uint8_t b)
+static inline int lcd_backlight(uint8_t r, uint8_t g, uint8_t b)
 {
     if (r > 30 || g > 30 || b > 30)
         return -1;
@@ -37,7 +37,7 @@ inline int lcd_backlight(uint8_t r, uint8_t g, uint8_t b)
     buf[1] = 128 + r;
     buf[3] = 158 + g;
     buf[5] = 188 + b;
-    return fputs("|", &uartout) != EOF ? 0 : -1;
+    return fputs(buf, &uartout) != EOF ? 0 : -1;
 }
 
 /**
@@ -47,7 +47,7 @@ inline int lcd_backlight(uint8_t r, uint8_t g, uint8_t b)
  * Newline characters are ignored. Call this function again to write to the
  * next line of the display. Use @c lcd_clear() to clear the display.
  */
-inline int lcd_write(const char *line)
+static inline int lcd_write(const char *line)
 {
     char buf[21];
     int i;
