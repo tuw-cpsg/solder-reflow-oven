@@ -31,8 +31,8 @@ void reflow_start()
 #define TEMP_SOAK_MIN   (100 * 4)
 #define TEMP_SOAK_SET   (120 * 4)
 #define TEMP_SOAK_MAX   (150 * 4)
-#define TEMP_LIQUIDUS   (183 * 4)
-#define TEMP_PEAK       (235 * 4)
+#define TEMP_LIQUIDUS   (220 * 4)
+#define TEMP_PEAK       (245 * 4)
 #define TEMP_OFF        (TEMP_PEAK - 10)
 
 int reflow_update(int temp)
@@ -156,7 +156,7 @@ int reflow_update(int temp)
         case 5:
             if (temp < TEMP_PEAK && t < t_off + 5) {
 #ifdef USE_LCD_DISP
-                lcd_printf("LIQUIDUS PHASE");
+                lcd_printf("LIQUIDUS PHASE (%3d s)", t - t_liqu);
                 lcd_printf("HEATER OFF");
                 lcd_backlight(lcd_blink, lcd_blink, lcd_blink);
 #else
